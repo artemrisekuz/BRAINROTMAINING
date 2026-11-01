@@ -1,0 +1,37 @@
+{
+  "balance": 1500,
+  "inventory": [
+    {
+      "id": "1793215021811-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T19:17:01.811Z",
+      "playerId": "C15522DC087945E08B7644EB34FE2193",
+      "player": "Гость C15522DC087945E08B7644EB34FE2193"
+    }
+  ],
+  "history": [
+    {
+      "id": "1793215021811-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T19:17:01.811Z",
+      "playerId": "C15522DC087945E08B7644EB34FE2193",
+      "player": "Гость C15522DC087945E08B7644EB34FE2193"
+    },
+    {
+      "id": "1793215001923-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T19:16:41.923Z",
+      "playerId": "C15522DC087945E08B7644EB34FE2193",
+      "player": "Гость C15522DC087945E08B7644EB34FE2193"
+    }
+  ],
+  "accounts": {
+    "C15522DC087945E08B7644EB34FE2193": {
+      "balance": 1480,
+      "inventory": []
+    }
+  }
+}

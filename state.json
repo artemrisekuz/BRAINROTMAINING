@@ -1,0 +1,774 @@
+{
+  "balance": 1245,
+  "inventory": [
+    {
+      "id": "1793519897602-garama",
+      "itemId": "garama",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:58:17.602Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519877442-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:57:57.442Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519837756-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:57:17.756Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519762875-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:56:02.875Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519752459-lagrande",
+      "itemId": "lagrande",
+      "caseId": "starter",
+      "openedAt": "2026-11-01T07:55:52.459Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793471839229-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:37:19.229Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793471597533-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:33:17.533Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469858053-spinny",
+      "itemId": "spinny",
+      "caseId": "samsmy",
+      "openedAt": "2026-10-31T18:04:18.053Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469766214-garama",
+      "itemId": "garama",
+      "caseId": "samsmy",
+      "openedAt": "2026-10-31T18:02:46.214Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469757025-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "samsmy",
+      "openedAt": "2026-10-31T18:02:37.025Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469731323-spinny",
+      "itemId": "spinny",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:02:11.323Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469705942-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:01:45.942Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469557371-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T17:59:17.371Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469549519-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T17:59:09.519Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469525150-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T17:58:45.150Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469478139-nuclearo",
+      "itemId": "nuclearo",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T17:57:58.139Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793469473129-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T17:57:53.129Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793457113356-spinny",
+      "itemId": "spinny",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T14:31:53.356Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793456737253-garama",
+      "itemId": "garama",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T14:25:37.253Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793456703821-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T14:25:03.821Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793455793430-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T14:09:53.430Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793455272790-summer",
+      "itemId": "summer",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T14:01:12.790Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793455194928-nuclearo",
+      "itemId": "nuclearo",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T13:59:54.928Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793455185254-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T13:59:45.254Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793455074335-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T13:57:54.336Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793453624746-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "hacker",
+      "openedAt": "2026-10-31T13:33:44.746Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793453574292-lagrande",
+      "itemId": "lagrande",
+      "caseId": "hacker",
+      "openedAt": "2026-10-31T13:32:54.292Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793453110399-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "hacker",
+      "openedAt": "2026-10-31T13:25:10.399Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793452521469-spinny",
+      "itemId": "spinny",
+      "caseId": "hacker",
+      "openedAt": "2026-10-31T13:15:21.469Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793452117431-spinny",
+      "itemId": "spinny",
+      "caseId": "hacker",
+      "openedAt": "2026-10-31T13:08:37.431Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793452106077-tang",
+      "itemId": "tang",
+      "caseId": "hacker",
+      "openedAt": "2026-10-31T13:08:26.077Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793452076707-crocodilo",
+      "itemId": "crocodilo",
+      "caseId": "hacker",
+      "openedAt": "2026-10-31T13:07:56.707Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793452074021-lagrande",
+      "itemId": "lagrande",
+      "caseId": "hacker",
+      "openedAt": "2026-10-31T13:07:54.021Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793450725653-taco-lucky-block",
+      "itemId": "taco-lucky-block",
+      "caseId": "starter",
+      "openedAt": "2026-10-31T12:45:25.653Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793450594941-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-31T12:43:14.941Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793450273039-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-31T12:37:53.039Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793450213101-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-31T12:36:53.101Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793450210798-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "starter",
+      "openedAt": "2026-10-31T12:36:50.798Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793210374735-arcadragon",
+      "itemId": "arcadragon",
+      "caseId": "lucky-blocks",
+      "openedAt": "2026-10-28T17:59:34.735Z",
+      "playerId": "2647A9DB021F4B6E899AD35430EEA26D",
+      "player": "Гость 2647A9DB021F4B6E899AD35430EEA26D"
+    },
+    {
+      "id": "1793210362466-arcadragon",
+      "itemId": "arcadragon",
+      "caseId": "lucky-blocks",
+      "openedAt": "2026-10-28T17:59:22.466Z",
+      "playerId": "2647A9DB021F4B6E899AD35430EEA26D",
+      "player": "Гость 2647A9DB021F4B6E899AD35430EEA26D"
+    },
+    {
+      "id": "1793210335428-arcadragon",
+      "itemId": "arcadragon",
+      "caseId": "lucky-blocks",
+      "openedAt": "2026-10-28T17:58:55.428Z",
+      "playerId": "2647A9DB021F4B6E899AD35430EEA26D",
+      "player": "Гость 2647A9DB021F4B6E899AD35430EEA26D"
+    },
+    {
+      "id": "1793210333419-arcadragon",
+      "itemId": "arcadragon",
+      "caseId": "lucky-blocks",
+      "openedAt": "2026-10-28T17:58:53.419Z",
+      "playerId": "2647A9DB021F4B6E899AD35430EEA26D",
+      "player": "Гость 2647A9DB021F4B6E899AD35430EEA26D"
+    },
+    {
+      "id": "1793210317969-arcadragon",
+      "itemId": "arcadragon",
+      "caseId": "lucky-blocks",
+      "openedAt": "2026-10-28T17:58:37.969Z",
+      "playerId": "2647A9DB021F4B6E899AD35430EEA26D",
+      "player": "Гость 2647A9DB021F4B6E899AD35430EEA26D"
+    },
+    {
+      "id": "1793197842296-taco-lucky-block",
+      "itemId": "taco-lucky-block",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:30:42.296Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793197427138-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:23:47.138Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793197415314-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:23:35.314Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793197277778-taco-lucky-block",
+      "itemId": "taco-lucky-block",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:21:17.778Z",
+      "playerId": "ACC665",
+      "player": "Гость ACC665"
+    },
+    {
+      "id": "1793197204314-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:20:04.314Z",
+      "playerId": "ACC665",
+      "player": "Гость ACC665"
+    },
+    {
+      "id": "1793197191362-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:19:51.362Z",
+      "playerId": "ACC665",
+      "player": "Гость ACC665"
+    },
+    {
+      "id": "1793197029281-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:17:09.281Z",
+      "playerId": "ACC665",
+      "player": "Гость ACC665"
+    },
+    {
+      "id": "1793196980945-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:16:20.945Z",
+      "playerId": "ACC665",
+      "player": "Гость ACC665"
+    },
+    {
+      "id": "1793196513360-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:08:33.360Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793196494968-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T14:08:14.968Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793195446857-taco-lucky-block",
+      "itemId": "taco-lucky-block",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T13:50:46.857Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793195429617-taco-lucky-block",
+      "itemId": "taco-lucky-block",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T13:50:29.617Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793195422771-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T13:50:22.771Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793195412085-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-28T13:50:12.086Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793117099090-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-27T16:04:59.090Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793117010793-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-10-27T16:03:30.793Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    },
+    {
+      "id": "1793117002050-taco-lucky-block",
+      "itemId": "taco-lucky-block",
+      "caseId": "starter",
+      "openedAt": "2026-10-27T16:03:22.050Z",
+      "playerId": "E605E6CBB1814DEE9A1B690A6C44B598",
+      "player": "Гость E605E6CBB1814DEE9A1B690A6C44B598"
+    }
+  ],
+  "history": [
+    {
+      "id": "1793526040730-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "starter",
+      "openedAt": "2026-11-01T09:40:40.730Z",
+      "playerId": "TG6987783335",
+      "player": "@ArkichPrivate"
+    },
+    {
+      "id": "1793525370370-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-11-01T09:29:30.370Z",
+      "playerId": "TG6987783335",
+      "player": "@ArkichPrivate"
+    },
+    {
+      "id": "1793522689148-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-11-01T08:44:49.148Z",
+      "playerId": "3DAB6439F6554B759A423442BA07E29D",
+      "player": "Гость 07E29D"
+    },
+    {
+      "id": "1793521544747-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-11-01T08:25:44.747Z",
+      "playerId": "3DAB6439F6554B759A423442BA07E29D",
+      "player": "Гость 07E29D"
+    },
+    {
+      "id": "1793521076846-tang",
+      "itemId": "tang",
+      "caseId": "hacker",
+      "openedAt": "2026-11-01T08:17:56.846Z",
+      "playerId": "7240D4CDA1294DF888BCB3255BF9C9F7",
+      "player": "Гость F9C9F7"
+    },
+    {
+      "id": "1793519897602-garama",
+      "itemId": "garama",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:58:17.602Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519887701-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:58:07.701Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519877442-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:57:57.442Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519866423-summer",
+      "itemId": "summer",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:57:46.423Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519857640-nuclearo",
+      "itemId": "nuclearo",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:57:37.640Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519849209-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:57:29.209Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519837756-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:57:17.756Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519824623-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:57:04.623Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519822441-nuclearo",
+      "itemId": "nuclearo",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:57:02.441Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519814806-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:56:54.806Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519812325-ketchuru",
+      "itemId": "ketchuru",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:56:52.325Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519802545-spinny",
+      "itemId": "spinny",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:56:42.545Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519794223-nuclearo",
+      "itemId": "nuclearo",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:56:34.223Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519783756-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:56:23.756Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519772287-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:56:12.287Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519762875-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-11-01T07:56:02.875Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519754805-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-11-01T07:55:54.805Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519752459-lagrande",
+      "itemId": "lagrande",
+      "caseId": "starter",
+      "openedAt": "2026-11-01T07:55:52.459Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793519743233-noobini-pizzanini",
+      "itemId": "noobini-pizzanini",
+      "caseId": "starter",
+      "openedAt": "2026-11-01T07:55:43.235Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793471839229-la-vacca",
+      "itemId": "la-vacca",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:37:19.229Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793471830597-summer",
+      "itemId": "summer",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:37:10.597Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793471821776-spinny",
+      "itemId": "spinny",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:37:01.776Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793471812949-lavadorito",
+      "itemId": "lavadorito",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:36:52.949Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793471804834-nuclearo",
+      "itemId": "nuclearo",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:36:44.834Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    },
+    {
+      "id": "1793471794655-garama",
+      "itemId": "garama",
+      "caseId": "sammy",
+      "openedAt": "2026-10-31T18:36:34.655Z",
+      "playerId": "AEE60CCA8C05402DBC429787E50E2641",
+      "player": "Гость 0E2641"
+    }
+  ],
+  "accounts": {
+    "E605E6CBB1814DEE9A1B690A6C44B598": {
+      "balance": 1245,
+      "inventory": [
+        "1793197842296-taco-lucky-block",
+        "1793197427138-noobini-pizzanini",
+        "1793197415314-noobini-pizzanini",
+        "1793196513360-noobini-pizzanini",
+        "1793196494968-noobini-pizzanini",
+        "1793195446857-taco-lucky-block",
+        "1793195429617-taco-lucky-block",
+        "1793195422771-noobini-pizzanini",
+        "1793195412085-noobini-pizzanini",
+        "1793117099090-noobini-pizzanini",
+        "1793117010793-noobini-pizzanini",
+        "1793117002050-taco-lucky-block"
+      ]
+    },
+    "2647A9DB021F4B6E899AD35430EEA26D": {
+      "balance": 11,
+      "inventory": []
+    },
+    "AEE60CCA8C05402DBC429787E50E2641": {
+      "balance": 48174,
+      "inventory": []
+    },
+    "FA212B60B91F4067B90A1523E1525513": {
+      "balance": 7,
+      "inventory": []
+    },
+    "9CF3910EB5EC401CB87EDD5E888F83D6": {
+      "balance": 13,
+      "inventory": []
+    },
+    "7240D4CDA1294DF888BCB3255BF9C9F7": {
+      "balance": 26,
+      "inventory": []
+    },
+    "TG6987783335": {
+      "balance": 6,
+      "inventory": []
+    },
+    "3DAB6439F6554B759A423442BA07E29D": {
+      "balance": 2,
+      "inventory": []
+    }
+  }
+}
