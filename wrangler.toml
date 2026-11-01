@@ -1,0 +1,21 @@
+name = "brainrot-mining"
+main = "worker/index.js"
+compatibility_date = "2024-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Static assets (index.html, CSS, JS, images)
+[assets]
+directory = "./public"
+binding = "ASSETS"
+
+# D1 database binding
+[[d1_databases]]
+binding = "DB"
+database_name = "brainrot-mining-db"
+database_id = "df9155ba-9a58-473d-b732-12f20b7578c3"
+
+# Environment variables (non-secret)
+[vars]
+TELEGRAM_ADMIN_ID = "6987783335"
+
+# Wrangler will not run interactive prompts with --non-interactive

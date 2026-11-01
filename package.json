@@ -1,15 +1,25 @@
 {
-  "name": "violet-vault",
+  "name": "brainrot-mining",
   "private": true,
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "description": "Brainrot Mining — Telegram Mini App case-opening game on Cloudflare Workers",
   "scripts": {
-    "start": "node start.js",
-    "start:site": "node server.js",
-    "start:bot": "node bot.js",
-    "dev:bot": "node --watch bot.js"
+    "dev": "wrangler dev --local",
+    "deploy": "wrangler deploy --non-interactive",
+    "db:create": "wrangler d1 create brainrot-mining-db",
+    "db:migrate:local": "wrangler d1 migrations apply brainrot-mining-db --local",
+    "db:migrate:remote": "wrangler d1 migrations apply brainrot-mining-db --remote",
+    "db:migrate": "npm run db:migrate:remote",
+    "webhook:set": "node scripts/set-webhook.js",
+    "webhook:delete": "node scripts/delete-webhook.js",
+    "start": "echo 'Use npm run dev for local development'",
+    "start:site": "echo 'Replaced by Cloudflare Workers'",
+    "start:bot": "echo 'Bot runs via webhook on Cloudflare Workers'"
   },
   "dependencies": {
-    "dotenv": "^18.0.9",
     "grammy": "^1.46.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.91.0"
   }
 }

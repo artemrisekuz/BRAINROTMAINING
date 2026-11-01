@@ -6,7 +6,7 @@
   "startingBalance": 30,
   "brainrots": [
     { "id": "noobini-pizzanini", "name": "Noobini Pizzanini", "price": 1, "withdrawable": false, "image": "New_Noobini_Pizzanini.webp" },
-    { "id": "taco-lucky-block", "name": "Taco Lucky Block", "price": 2, "withdrawable": false, "image": "tacoluckyblock2.webp" },
+    { "id": "taco-lucky-block", "name": "Taco Lucky Block", "price": 2, "withdrawable": false, "image": "TacoLuckyBlock2.webp" },
     { "id": "la-vacca", "name": "La Vacca Saturno Saturnita", "price": 5, "withdrawable": true, "image": "LaVaccaSaturnoSaturnita.webp" },
     { "id": "crocodilo", "name": "Bombardiro Crocodilo", "price": 10, "withdrawable": false, "image": "Bombardiro_Crocodilo.webp" },
     { "id": "lagrande", "name": "La Grande Combinasion", "price": 15, "withdrawable": false, "image": "La_Grande_Combinasion.webp" },

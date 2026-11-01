@@ -1,0 +1,28 @@
+{
+  "siteName": "Brainrot Mining",
+  "tagline": "Открывай кейсы и собирай коллекцию редких брейнротов.",
+  "currencyName": "монет",
+  "supportHandle": "@your_support",
+  "startingBalance": 30,
+  "brainrots": [
+    { "id": "noobini-pizzanini", "name": "Noobini Pizzanini", "price": 1, "withdrawable": false, "image": "New_Noobini_Pizzanini.webp" },
+    { "id": "taco-lucky-block", "name": "Taco Lucky Block", "price": 2, "withdrawable": false, "image": "TacoLuckyBlock2.webp" },
+    { "id": "la-vacca", "name": "La Vacca Saturno Saturnita", "price": 5, "withdrawable": true, "image": "LaVaccaSaturnoSaturnita.webp" },
+    { "id": "crocodilo", "name": "Bombardiro Crocodilo", "price": 10, "withdrawable": false, "image": "Bombardiro_Crocodilo.webp" },
+    { "id": "lagrande", "name": "La Grande Combinasion", "price": 15, "withdrawable": false, "image": "La_Grande_Combinasion.webp" },
+    { "id": "tang", "name": "Tang Tang Keletang", "price": 25, "withdrawable": false, "image": "TangTangKeletang.webp" },
+    { "id": "spinny", "name": "Spinny Hammy", "price": 35, "withdrawable": false, "image": "Spinny_Hammy.webp" },
+    { "id": "nuclearo", "name": "Nuclearo Dinossauro", "price": 40, "withdrawable": false, "image": "NuclearoDinossauro.webp" },
+    { "id": "lavadorito", "name": "Lavadorito Spinito", "price": 45, "withdrawable": false, "image": "LavadoritoSpinito.webp" },
+    { "id": "summer", "name": "La Summer Grande", "price": 50, "withdrawable": false, "image": "La_Summer_Grande.webp" },
+    { "id": "garama", "name": "Garama and Madundung", "price": 55, "withdrawable": true, "image": "Garamadundung.webp" },
+    { "id": "ketchuru", "name": "Ketchuru and Musturu", "price": 60, "withdrawable": false, "image": "KetchuruandMusturu.webp" }
+    
+  ],
+  "cases": [
+    { "id": "starter", "name": "Стартовый кейс", "price": 15, "image": "starter-case.png", "items": ["noobini-pizzanini", "taco-lucky-block", "la-vacca", "crocodilo", "lagrande", "tang", "spinny"], "dropChances": { "noobini-pizzanini": 60, "taco-lucky-block": 55, "la-vacca": 50, "crocodilo": 45, "lagrande": 40, "tang": 35, "spinny": 20 } },
+    { "id": "hacker", "name": "Хакер Кейс", "price": 29, "image": "hacker-case.png", "items": ["crocodilo", "lagrande", "tang", "spinny", "nuclearo", "lavadorito"], "dropChances": { "crocodilo": 60, "lagrande": 55, "tang": 45, "spinny": 35, "nuclearo": 25, "lavadorito": 20} },
+    { "id": "sammy", "name": "Сэмми Кейс", "price": 40, "image": "Sammy_case.png", "items": ["la-vacca", "spinny", "nuclearo", "lavadorito", "summer", "garama", "ketchuru"], "dropChances": { "la-vacca": 40, "spinny": 35, "nuclearo": 30, "lavadorito": 25, "summer": 20, "garama": 15, "ketchuru": 10 } },
+    { "id": "samsmy", "name": "Сэммsи Кейс", "price": 40, "image": "Sammy_case.png", "items": ["la-vacca", "spinny", "nuclearo", "lavadorito", "summer", "garama", "ketchuru"], "dropChances": { "la-vacca": 40, "spinny": 35, "nuclearo": 30, "lavadorito": 25, "summer": 20, "garama": 15, "ketchuru": 100 } }
+  ]
+}
