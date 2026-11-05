@@ -1,44 +1,17 @@
 /**
  * Cloudflare Worker entry point — Brainrot Mining
- *
- * Routes:
- *  GET  /api/config
- *  GET  /api/auth/me
- *  POST /api/auth/telegram-webapp
- *  POST /api/auth/logout
- *  GET  /api/state
- *  GET  /api/live-events
- *  POST /api/sell-item
- *  POST /api/upgrade
- *  POST /api/open-case
- *  POST /api/telegram-webhook   ← Telegram bot webhook
- *  GET  /*                      ← static assets (served by ASSETS binding)
  */
 
+import { validateInitData, createSessionCookie, getSession, buildSetCookieHeader } from './auth.js';
 import {
-  validateInitData,
-  createSessionCookie,
-  getSession,
-  buildSetCookieHeader,
-} from './auth.js';
-
-import {
-  getOrCreateAccount,
-  deductBalance,
-  addBalance,
-  incrementCasesOpened,
-  getInventory,
-  addDrop,
-  sellDrop,
-  removeDrop,
-  getHistory,
-  getRecentDrops,
+  getOrCreateAccount, deductBalance, addBalance, setBalance,
+  incrementCasesOpened, getInventory, addDrop, sellDrop, removeDrop,
+  getHistory, getRecentDrops,
+  isAdmin, getAdmins, addAdmin, removeAdmin, getAllAccounts,
+  createPromo, getPromo, getAllPromos, deletePromo, redeemPromo,
 } from './db.js';
-
 import { pickCaseItem, upgradeChance, rollUpgrade, newDropId } from './game.js';
 import { createBotHandler } from './bot.js';
-
-// Properties are bundled from public/properties.json at build time
 import config from '../public/properties.json';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -51,7 +24,6 @@ const json = (data, status = 200, headers = {}) =>
 
 const err = (message, status = 400) => json({ error: message }, status);
 
-/** Reads and size-limits a JSON request body. Returns parsed object or null. */
 async function readJson(request, maxBytes = 20_000) {
   const ct = request.headers.get('content-type') || '';
   if (!ct.includes('application/json')) return null;
@@ -60,7 +32,6 @@ async function readJson(request, maxBytes = 20_000) {
   try { return JSON.parse(text); } catch { return null; }
 }
 
-/** Sanitise a display name: strip < > and truncate. */
 const safeName = (value, maxLen = 80) =>
   String(value || '').replace(/[<>]/g, '').slice(0, maxLen);
 
@@ -69,31 +40,31 @@ const safeName = (value, maxLen = 80) =>
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const { pathname, method } = { pathname: url.pathname, method: request.method };
+    const { pathname } = url;
+    const method = request.method;
     const db = env.DB;
-    const adminId = env.TELEGRAM_ADMIN_ID || '6987783335';
     const SESSION_SECRET = env.SESSION_SECRET || '';
     const BOT_TOKEN = env.TELEGRAM_BOT_TOKEN || '';
-    const SESSION_MAX_AGE = 60 * 60 * 24 * 30; // 30 days
+    const SESSION_MAX_AGE = 60 * 60 * 24 * 30;
 
-    // ── /api/config ────────────────────────────────────────────────────────
-    if (method === 'GET' && pathname === '/api/config') {
-      return json(config);
-    }
+    // ── GET /api/config ──────────────────────────────────────────────────
+    if (method === 'GET' && pathname === '/api/config') return json(config);
 
-    // ── /api/auth/me ────────────────────────────────────────────────────────
+    // ── GET /api/auth/me ─────────────────────────────────────────────────
     if (method === 'GET' && pathname === '/api/auth/me') {
       const session = await getSession(request, SESSION_SECRET);
       if (!session) return json({ authenticated: false });
+      const admin = db ? await isAdmin(db, session.sub) : false;
       return json({
         authenticated: true,
         telegramId: session.sub.slice(2),
         username: session.username || null,
         name: session.name || 'Telegram user',
+        isAdmin: admin,
       });
     }
 
-    // ── POST /api/auth/telegram-webapp ─────────────────────────────────────
+    // ── POST /api/auth/telegram-webapp ───────────────────────────────────
     if (method === 'POST' && pathname === '/api/auth/telegram-webapp') {
       const body = await readJson(request);
       if (!body) return err('Некорректный запрос.', 400);
@@ -103,18 +74,18 @@ export default {
         return err('Не удалось проверить запуск Telegram Mini App. Откройте приложение через кнопку бота.', 401);
       }
 
-      // Admin-only check
-      if (String(telegramUser.id) !== adminId) {
-        return err('ВЫ НЕ АДМИН!', 403);
-      }
-
       const username = String(telegramUser.username || '').replace(/[^a-zA-Z0-9_]/g, '').slice(0, 32);
       const name = safeName(
         [telegramUser.first_name, telegramUser.last_name].filter(Boolean).join(' ') || 'Telegram user'
       );
+      const playerId = `TG${telegramUser.id}`;
+
+      // Ensure account exists
+      if (db) await getOrCreateAccount(db, playerId, username, name, config.startingBalance);
+      const admin = db ? await isAdmin(db, playerId) : false;
 
       const sessionData = {
-        sub: `TG${telegramUser.id}`,
+        sub: playerId,
         username,
         name,
         source: 'miniapp',
@@ -125,32 +96,30 @@ export default {
       const setCookie = buildSetCookieHeader(cookieValue, SESSION_MAX_AGE, request);
 
       return json(
-        { authenticated: true, username: username || null, name },
+        { authenticated: true, username: username || null, name, isAdmin: admin },
         200,
         { 'set-cookie': setCookie }
       );
     }
 
-    // ── POST /api/auth/logout ───────────────────────────────────────────────
+    // ── POST /api/auth/logout ────────────────────────────────────────────
     if (method === 'POST' && pathname === '/api/auth/logout') {
-      const setCookie = buildSetCookieHeader('', 0, request);
-      return json({ authenticated: false }, 200, { 'set-cookie': setCookie });
+      return json({ authenticated: false }, 200, {
+        'set-cookie': buildSetCookieHeader('', 0, request),
+      });
     }
 
-    // ── All remaining /api/* require a valid session ────────────────────────
+    // ── Require session for all remaining routes ──────────────────────────
     const session = await getSession(request, SESSION_SECRET);
 
-    // ── GET /api/state ──────────────────────────────────────────────────────
+    // ── GET /api/state ───────────────────────────────────────────────────
     if (method === 'GET' && pathname === '/api/state') {
       if (!session) return err('Откройте игру через Telegram.', 401);
       const playerId = session.sub;
-
-      const account = await getOrCreateAccount(
-        db, playerId, session.username, session.name, config.startingBalance
-      );
+      const account = await getOrCreateAccount(db, playerId, session.username, session.name, config.startingBalance);
       const inventory = await getInventory(db, playerId);
       const history = await getHistory(db, playerId, 30);
-
+      const admin = await isAdmin(db, playerId);
       return json({
         balance: account.balance,
         inventory,
@@ -158,14 +127,12 @@ export default {
         telegramId: playerId.slice(2),
         username: session.username || null,
         name: session.name || 'Telegram user',
-        stats: {
-          casesOpened: account.cases_opened || 0,
-          inventoryCount: inventory.length,
-        },
+        isAdmin: admin,
+        stats: { casesOpened: account.cases_opened || 0, inventoryCount: inventory.length },
       });
     }
 
-    // ── GET /api/live-events ────────────────────────────────────────────────
+    // ── GET /api/live-events ─────────────────────────────────────────────
     if (method === 'GET' && pathname === '/api/live-events') {
       if (!session) return err('Откройте игру через Telegram.', 401);
       const drops = await getRecentDrops(db, 30);
@@ -177,60 +144,44 @@ export default {
       return json({ events });
     }
 
-    // ── POST /api/sell-item ─────────────────────────────────────────────────
+    // ── POST /api/sell-item ──────────────────────────────────────────────
     if (method === 'POST' && pathname === '/api/sell-item') {
       if (!session) return err('Откройте игру через Telegram.', 401);
       const body = await readJson(request, 10_000);
       if (!body || typeof body.dropId !== 'string') return err('Некорректный запрос.');
-
       const playerId = session.sub;
-
-      // Find item price (need to look up item before deleting the drop)
       const inventory = await getInventory(db, playerId);
       const drop = inventory.find(d => d.id === body.dropId);
       if (!drop) return err('Предмет не найден в вашем профиле.', 404);
-
       const item = config.brainrots.find(b => b.id === drop.itemId);
       if (!item) return err('Данные предмета не найдены.', 404);
-
       const result = await sellDrop(db, body.dropId, playerId, item.price);
       if (!result) return err('Предмет не найден в вашем профиле.', 404);
-
       return json({ balance: result.newBalance, soldDropId: body.dropId, amount: item.price });
     }
 
-    // ── POST /api/upgrade ───────────────────────────────────────────────────
+    // ── POST /api/upgrade ────────────────────────────────────────────────
     if (method === 'POST' && pathname === '/api/upgrade') {
       if (!session) return err('Откройте игру через Telegram.', 401);
       const body = await readJson(request, 10_000);
       if (!body || typeof body.dropId !== 'string' || typeof body.targetId !== 'string') {
         return err('Некорректный запрос апгрейда.');
       }
-
       const playerId = session.sub;
-
-      // Verify ownership
       const inventory = await getInventory(db, playerId);
       const sourceDrop = inventory.find(d => d.id === body.dropId);
       if (!sourceDrop) return err('Предмет не найден в вашем профиле.', 404);
-
       const source = config.brainrots.find(b => b.id === sourceDrop.itemId);
       const target = config.brainrots.find(b => b.id === body.targetId);
-
       if (!source || !target || target.price <= source.price) {
         return err('Цель должна быть дороже выбранного предмета.', 400);
       }
-
       const chance = upgradeChance(source, target);
       const success = rollUpgrade(chance);
-
-      // Remove source drop regardless of outcome
       const removed = await removeDrop(db, body.dropId, playerId);
       if (!removed) return err('Предмет уже был использован.', 409);
-
       let awardedDrop = null;
       if (success) {
-        const account = await getOrCreateAccount(db, playerId, session.username, session.name, config.startingBalance);
         const playerName = session.username ? `@${session.username}` : session.name || 'Telegram';
         awardedDrop = {
           id: newDropId(target.id),
@@ -244,9 +195,7 @@ export default {
         };
         await addDrop(db, awardedDrop);
       }
-
       const account = await getOrCreateAccount(db, playerId, session.username, session.name, config.startingBalance);
-
       return json({
         success,
         chance: Number(chance.toFixed(2)),
@@ -257,35 +206,26 @@ export default {
       });
     }
 
-    // ── POST /api/open-case ─────────────────────────────────────────────────
+    // ── POST /api/open-case ──────────────────────────────────────────────
     if (method === 'POST' && pathname === '/api/open-case') {
       if (!session) return err('Откройте игру через Telegram.', 401);
       const body = await readJson(request, 10_000);
       if (!body || typeof body.caseId !== 'string') return err('Некорректный запрос.');
-
       const caseData = config.cases.find(c => c.id === body.caseId);
       if (!caseData) return err('Кейс не найден.', 404);
-
       const playerId = session.sub;
-
-      // Atomically deduct balance — prevents race conditions
-      const newBalance = await deductBalance(db, playerId, caseData.price);
+      let newBalance = await deductBalance(db, playerId, caseData.price);
       if (newBalance === null) {
-        // Try to ensure account exists, then retry
         await getOrCreateAccount(db, playerId, session.username, session.name, config.startingBalance);
-        const retryBalance = await deductBalance(db, playerId, caseData.price);
-        if (retryBalance === null) return err('Недостаточно монет.', 400);
+        newBalance = await deductBalance(db, playerId, caseData.price);
+        if (newBalance === null) return err('Недостаточно монет.', 400);
       }
-
       const item = pickCaseItem(config, caseData);
       if (!item) {
-        // Refund and bail
         await addBalance(db, playerId, caseData.price);
         return err('Не найден предмет для этого кейса.', 500);
       }
-
       await incrementCasesOpened(db, playerId);
-
       const playerName = session.username ? `@${session.username}` : session.name || 'Telegram';
       const drop = {
         id: newDropId(item.id),
@@ -296,30 +236,171 @@ export default {
         kind: 'case',
         openedAt: new Date().toISOString(),
       };
-
       await addDrop(db, drop);
-
-      const finalBalance = newBalance !== null ? newBalance : (await getOrCreateAccount(db, playerId, session.username, session.name, config.startingBalance)).balance;
-
-      return json({ balance: finalBalance, item, drop });
+      return json({ balance: newBalance, item, drop });
     }
 
-    // ── POST /api/telegram-webhook ─────────────────────────────────────────
+    // ════════════════════════════════════════════════════════════════════
+    // ── BONUS: POST /api/bonus/redeem ────────────────────────────────────
+    // ════════════════════════════════════════════════════════════════════
+    if (method === 'POST' && pathname === '/api/bonus/redeem') {
+      if (!session) return err('Откройте игру через Telegram.', 401);
+      const body = await readJson(request, 2_000);
+      if (!body || typeof body.code !== 'string') return err('Укажите промокод.');
+      const code = body.code.trim().toUpperCase();
+      if (!code) return err('Пустой промокод.');
+
+      const playerId = session.sub;
+      const result = await redeemPromo(db, code, playerId);
+      if (!result.ok) return err(result.error, 400);
+
+      const promo = result.promo;
+
+      if (promo.type === 'coins') {
+        const newBalance = await addBalance(db, playerId, promo.value);
+        return json({ type: 'coins', value: promo.value, balance: newBalance });
+      }
+
+      if (promo.type === 'case') {
+        const caseData = config.cases.find(c => c.id === promo.case_id);
+        if (!caseData) return err('Кейс из промокода не найден.');
+        const item = pickCaseItem(config, caseData);
+        if (!item) return err('Не найден предмет для кейса.');
+        const playerName = session.username ? `@${session.username}` : session.name || 'Telegram';
+        const drop = {
+          id: newDropId(item.id),
+          playerId,
+          playerName,
+          itemId: item.id,
+          caseId: caseData.id,
+          kind: 'case',
+          openedAt: new Date().toISOString(),
+        };
+        await addDrop(db, drop);
+        const account = await getOrCreateAccount(db, playerId, session.username, session.name, config.startingBalance);
+        return json({ type: 'case', caseName: caseData.name, item, drop, balance: account.balance });
+      }
+
+      return err('Неизвестный тип промокода.');
+    }
+
+    // ════════════════════════════════════════════════════════════════════
+    // ── ADMIN routes (all require isAdmin check) ──────────────────────────
+    // ════════════════════════════════════════════════════════════════════
+    if (pathname.startsWith('/api/admin/')) {
+      if (!session) return err('Требуется авторизация.', 401);
+      const adminCheck = await isAdmin(db, session.sub);
+      if (!adminCheck) return err('Нет доступа.', 403);
+
+      // GET /api/admin/players — list all accounts
+      if (method === 'GET' && pathname === '/api/admin/players') {
+        const accounts = await getAllAccounts(db);
+        return json({ accounts });
+      }
+
+      // POST /api/admin/give-coins — give coins to player by telegramId
+      if (method === 'POST' && pathname === '/api/admin/give-coins') {
+        const body = await readJson(request, 2_000);
+        if (!body || !body.telegramId || !body.amount) return err('Укажите telegramId и amount.');
+        const targetId = `TG${String(body.telegramId).replace(/\D/g, '')}`;
+        const amount = Number(body.amount);
+        if (!targetId || isNaN(amount) || amount === 0) return err('Некорректные данные.');
+        const existing = await getOrCreateAccount(db, targetId, null, 'Игрок', config.startingBalance);
+        const newBalance = amount > 0
+          ? await addBalance(db, targetId, amount)
+          : await deductBalance(db, targetId, Math.abs(amount));
+        return json({ ok: true, playerId: targetId, oldBalance: existing.balance, newBalance });
+      }
+
+      // POST /api/admin/set-balance — set exact balance
+      if (method === 'POST' && pathname === '/api/admin/set-balance') {
+        const body = await readJson(request, 2_000);
+        if (!body || !body.telegramId || body.amount === undefined) return err('Укажите telegramId и amount.');
+        const targetId = `TG${String(body.telegramId).replace(/\D/g, '')}`;
+        const amount = Number(body.amount);
+        if (!targetId || isNaN(amount) || amount < 0) return err('Некорректные данные.');
+        await getOrCreateAccount(db, targetId, null, 'Игрок', config.startingBalance);
+        const newBalance = await setBalance(db, targetId, amount);
+        return json({ ok: true, playerId: targetId, newBalance });
+      }
+
+      // GET /api/admin/promos — list all promo codes
+      if (method === 'GET' && pathname === '/api/admin/promos') {
+        const promos = await getAllPromos(db);
+        return json({ promos });
+      }
+
+      // POST /api/admin/promos — create promo code
+      if (method === 'POST' && pathname === '/api/admin/promos') {
+        const body = await readJson(request, 2_000);
+        if (!body || !body.code || !body.type) return err('Укажите code и type (coins|case).');
+        const code = String(body.code).trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '');
+        if (!code) return err('Некорректный код промокода.');
+        if (!['coins', 'case'].includes(body.type)) return err('type должен быть coins или case.');
+        if (body.type === 'coins' && (!body.value || Number(body.value) <= 0)) return err('Для монет укажите value > 0.');
+        if (body.type === 'case' && !body.caseId) return err('Для кейса укажите caseId.');
+        if (body.type === 'case') {
+          const caseData = config.cases.find(c => c.id === body.caseId);
+          if (!caseData) return err('Кейс не найден.');
+        }
+        const existing = await getPromo(db, code);
+        if (existing) return err('Промокод с таким кодом уже существует.');
+        await createPromo(db, {
+          code,
+          type: body.type,
+          value: body.type === 'coins' ? Number(body.value) : 0,
+          caseId: body.type === 'case' ? body.caseId : null,
+          usesLeft: body.usesLeft !== undefined ? Number(body.usesLeft) : 1,
+          expiresAt: body.expiresAt || null,
+          createdBy: session.sub,
+        });
+        return json({ ok: true, code });
+      }
+
+      // DELETE /api/admin/promos — delete promo code
+      if (method === 'DELETE' && pathname === '/api/admin/promos') {
+        const body = await readJson(request, 1_000);
+        if (!body || !body.code) return err('Укажите code.');
+        await deletePromo(db, body.code);
+        return json({ ok: true });
+      }
+
+      // GET /api/admin/admins — list admins
+      if (method === 'GET' && pathname === '/api/admin/admins') {
+        const admins = await getAdmins(db);
+        return json({ admins });
+      }
+
+      // POST /api/admin/admins — add admin
+      if (method === 'POST' && pathname === '/api/admin/admins') {
+        const body = await readJson(request, 1_000);
+        if (!body || !body.telegramId) return err('Укажите telegramId.');
+        const targetId = `TG${String(body.telegramId).replace(/\D/g, '')}`;
+        await addAdmin(db, targetId);
+        return json({ ok: true, playerId: targetId });
+      }
+
+      // DELETE /api/admin/admins — remove admin
+      if (method === 'DELETE' && pathname === '/api/admin/admins') {
+        const body = await readJson(request, 1_000);
+        if (!body || !body.telegramId) return err('Укажите telegramId.');
+        const targetId = `TG${String(body.telegramId).replace(/\D/g, '')}`;
+        if (targetId === session.sub) return err('Нельзя удалить самого себя из админов.', 400);
+        await removeAdmin(db, targetId);
+        return json({ ok: true, playerId: targetId });
+      }
+
+      return err('Маршрут не найден.', 404);
+    }
+
+    // ── POST /api/telegram-webhook ───────────────────────────────────────
     if (method === 'POST' && pathname === '/api/telegram-webhook') {
-      const handler = createBotHandler(
-        env, db,
-        getOrCreateAccount, getInventory, addBalance, removeDrop
-      );
+      const handler = createBotHandler(env, db, getOrCreateAccount, getInventory, addBalance, removeDrop);
       return handler(request);
     }
 
-    // ── Static assets ──────────────────────────────────────────────────────
-    // ASSETS binding (Cloudflare Pages / Workers Static Assets) serves
-    // everything in the /public directory automatically.
-    if (env.ASSETS) {
-      return env.ASSETS.fetch(request);
-    }
-
+    // ── Static assets ────────────────────────────────────────────────────
+    if (env.ASSETS) return env.ASSETS.fetch(request);
     return new Response('Not found', { status: 404 });
   },
 };
