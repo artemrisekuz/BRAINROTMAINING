@@ -98,7 +98,8 @@ export async function createSessionCookie(sessionData, sessionSecret) {
  * Returns the session object or null.
  */
 export async function getSession(request, sessionSecret) {
-  if (!sessionSecret) return null;
+  // If no secret configured — sessions cannot work
+  if (!sessionSecret || sessionSecret.startsWith('YOUR_')) return null;
   const cookieHeader = request.headers.get('cookie') || '';
   const raw = cookieHeader.split(';').map(s => s.trim()).find(s => s.startsWith('vv_tg='));
   if (!raw) return null;

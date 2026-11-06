@@ -69,6 +69,16 @@ export default {
       const body = await readJson(request);
       if (!body) return err('Некорректный запрос.', 400);
 
+      // Guard: SESSION_SECRET must be configured
+      if (!SESSION_SECRET || SESSION_SECRET.startsWith('YOUR_')) {
+        return err('Сервер не настроен: отсутствует SESSION_SECRET. Добавьте секрет через wrangler secret put SESSION_SECRET.', 503);
+      }
+
+      // Guard: BOT_TOKEN must be configured
+      if (!BOT_TOKEN || BOT_TOKEN.startsWith('YOUR_')) {
+        return err('Сервер не настроен: отсутствует TELEGRAM_BOT_TOKEN. Добавьте токен через wrangler secret put TELEGRAM_BOT_TOKEN.', 503);
+      }
+
       const telegramUser = await validateInitData(body.initData, BOT_TOKEN);
       if (!telegramUser) {
         return err('Не удалось проверить запуск Telegram Mini App. Откройте приложение через кнопку бота.', 401);
@@ -400,7 +410,10 @@ export default {
     }
 
     // ── Static assets ────────────────────────────────────────────────────
-    if (env.ASSETS) return env.ASSETS.fetch(request);
+    // Only serve static files for GET/HEAD on non-API paths
+    if ((method === 'GET' || method === 'HEAD') && !pathname.startsWith('/api/')) {
+      if (env.ASSETS) return env.ASSETS.fetch(request);
+    }
     return new Response('Not found', { status: 404 });
   },
 };

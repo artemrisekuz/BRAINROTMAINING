@@ -1,12 +1,15 @@
-name = "brainrotmaining"
+name = "brainrot-mining"
 main = "worker/index.js"
 compatibility_date = "2024-11-01"
 compatibility_flags = ["nodejs_compat"]
 
-# Static assets (index.html, CSS, JS, images)
+# Static assets — Worker runs first, falls back to assets for non-API paths
 [assets]
 directory = "./public"
 binding = "ASSETS"
+# IMPORTANT: "none" means Worker handles ALL requests first.
+# Worker decides when to call env.ASSETS.fetch() for static files.
+not_found_handling = "none"
 
 # D1 database binding
 [[d1_databases]]
@@ -14,8 +17,6 @@ binding = "DB"
 database_name = "brainrot-mining-db"
 database_id = "df9155ba-9a58-473d-b732-12f20b7578c3"
 
-# Environment variables (non-secret)
-# Environment variables (non-secret)
+# Non-secret environment variables
 [vars]
 TELEGRAM_ADMIN_ID = "6987783335"
-TELEGRAM_WEBAPP_URL = "https://brainrotmaining.artemsfriends.workers.dev"

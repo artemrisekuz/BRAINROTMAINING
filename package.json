@@ -5,7 +5,7 @@
   "description": "Brainrot Mining — Telegram Mini App case-opening game on Cloudflare Workers",
   "scripts": {
     "dev": "wrangler dev --local",
-    "deploy": "wrangler deploy --non-interactive",
+    "deploy": "wrangler deploy",
     "db:create": "wrangler d1 create brainrot-mining-db",
     "db:migrate:local": "wrangler d1 migrations apply brainrot-mining-db --local",
     "db:migrate:remote": "wrangler d1 migrations apply brainrot-mining-db --remote",
@@ -20,6 +20,6 @@
     "grammy": "^1.46.0"
   },
   "devDependencies": {
-    "wrangler": "^3.91.0"
+    "wrangler": "^4.158.0"
   }
 }
