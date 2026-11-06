@@ -9,7 +9,18 @@
     // Check admin status from state
     fetch('/api/state', { cache: 'no-store' })
       .then(r => r.json())
-      .then(state => { if (state.isAdmin) initAdminPanel(state); })
+      .then(state => {
+        const wrapper = document.querySelector('#admin-wrapper');
+        const denied = document.querySelector('#admin-access-denied');
+        if (state.isAdmin) {
+          if (denied) denied.hidden = true;
+          if (wrapper) wrapper.hidden = false;
+          initAdminPanel(state);
+        } else {
+          if (denied) denied.hidden = false;
+          if (wrapper) wrapper.hidden = true;
+        }
+      })
       .catch(() => {});
   });
 

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Апгрейдер — Brainrot Mining</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="case-opening.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="/" aria-label="На главную">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 18 5M8 16l-3-3M11 13l-3-3M14 10l-3-3M17 7l-3-3M15 5l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-site-name></span>
+      </a>
+      <nav aria-label="Навигация">
+        <a href="/" data-page-link="home"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v11h14V9M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Главное</a>
+        <a href="/cases.html" data-page-link="cases"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 9-4 9 4-9 5-9-5ZM3 7v10l9 5 9-5V7M12 12v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Кейсы</a>
+        <a class="active" href="/upgrade.html" data-page-link="upgrader"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-6 6 6-6 6 6M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></b>Апгрейд</a>
+        <a href="/bonus.html" data-page-link="bonus"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.3L12 17l-6.2 4.2 2.4-7.3L2 9.4h7.6L12 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Бонусы</a>
+        <a href="/admin.html" data-page-link="admin" id="admin-nav-link" hidden><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 5h5l-4 4 1.5 5.5L12 14l-5.5 2.5L8 11 4 7h5l3-5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Админ</a>
+      </nav>
+      <div class="account">
+        <span id="balance">🪙 0</span>
+        <span id="telegram-user" class="telegram-user">Telegram</span>
+        <button class="profile-button" id="profile-button" type="button">Профиль</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="section upgrader-section" id="upgrader">
+        <div class="section-heading"><div><p class="eyebrow">ПРОКАЧКА</p><h2>Апгрейдер</h2></div><p>Поставьте свой брейн и выберите цель дороже. Палочка крутится по кругу — куда выпадет, там и результат.</p></div>
+        <div class="upgrade-panel">
+          <div class="upgrade-choice">
+            <div class="upgrade-choice-label"><span>ВАШ БРЕЙН</span><small id="upgrade-source-value">Выберите предмет</small></div>
+            <div id="upgrade-source-list" class="upgrade-items"><p class="upgrade-empty">Загрузка инвентаря…</p></div>
+          </div>
+          <div class="upgrade-chance-wrap">
+            <div class="upgrade-wheel-wrap" id="upgrade-wheel-wrap">
+              <canvas id="upgrade-wheel-canvas" class="upgrade-wheel-canvas" width="220" height="220" aria-label="Колесо шанса" role="img"></canvas>
+              <div class="upgrade-wheel-needle" id="upgrade-wheel-needle" aria-hidden="true"></div>
+              <div class="upgrade-wheel-center" id="upgrade-wheel-center">
+                <strong id="upgrade-chance">0%</strong>
+                <span>ШАНС</span>
+              </div>
+            </div>
+            <div class="upgrade-chance-legend">
+              <span><i class="upgrade-legend-win"></i>УСПЕХ</span>
+              <span><i class="upgrade-legend-lose"></i>ПРОИГРЫШ</span>
+            </div>
+            <div id="upgrade-chance-ring" class="upgrade-chance-ring" style="display:none"><span>0%</span></div>
+          </div>
+          <div class="upgrade-choice">
+            <div class="upgrade-choice-label"><span>ЦЕЛЬ</span><small id="upgrade-target-value">Выберите предмет</small></div>
+            <div id="upgrade-target-list" class="upgrade-items"><p class="upgrade-empty">Сначала выберите брейн</p></div>
+          </div>
+          <button id="upgrade-button" class="primary-button upgrade-submit" type="button" disabled>Апгрейд</button>
+          <p id="upgrade-status" class="upgrade-status" aria-live="polite"></p>
+        </div>
+      </section>
+    </main>
+
+    <nav class="miniapp-tabs" aria-label="Разделы игры">
+      <button class="miniapp-tab" type="button" onclick="location.href='/'"><span aria-hidden="true">🏠</span>Главная</button>
+      <button class="miniapp-tab" type="button" onclick="location.href='/cases.html'"><span aria-hidden="true">▣</span>Кейсы</button>
+      <button class="miniapp-tab active" type="button" onclick="location.href='/upgrade.html'"><span aria-hidden="true">↑</span>Апгрейд</button>
+      <button class="miniapp-tab" type="button" onclick="location.href='/bonus.html'"><span aria-hidden="true">★</span>Бонусы</button>
+      <button class="miniapp-tab" type="button" id="tab-profile"><span aria-hidden="true">◉</span>Профиль</button>
+    </nav>
+
+    <dialog id="profile-dialog" class="profile-dialog">
+      <button class="close profile-close" aria-label="Закрыть профиль" type="button">×</button>
+      <div class="profile-heading"><p class="eyebrow">TELEGRAM ACCOUNT</p><div class="profile-identity"><span id="profile-avatar" class="profile-avatar">T</span><div><h2 id="profile-name">Профиль</h2><p id="profile-telegram-id" class="profile-telegram-id"></p></div></div></div>
+      <div class="profile-highlights"><article id="profile-best-drop" class="profile-highlight" hidden><small>ЛУЧШИЙ ДРОП</small><img id="profile-best-image" alt=""><strong id="profile-best-name"></strong><span id="profile-best-source"></span><b id="profile-best-price"></b></article><article id="profile-favorite-case" class="profile-highlight" hidden><small>ЛЮБИМЫЙ КЕЙС</small><img id="profile-favorite-image" alt=""><strong id="profile-favorite-name"></strong><span id="profile-favorite-count"></span></article></div>
+      <div class="profile-stats"><div><small>БАЛАНС</small><strong id="profile-balance">0</strong><span>монет</span></div><div><small>КЕЙСЫ</small><strong id="profile-cases-count">0</strong><span>открыто</span></div><div><small>БРЕЙНЫ</small><strong id="profile-items-count">0</strong><span>в коллекции</span></div></div>
+      <div class="profile-collection-head"><div class="profile-section-title">КОЛЛЕКЦИЯ</div><button id="profile-sell-all" class="profile-sell-all" type="button" hidden>Продать всё</button></div>
+      <p id="profile-sale-status" class="profile-sale-status" aria-live="polite"></p>
+      <div id="profile-inventory" class="profile-inventory"></div>
+      <details class="profile-history"><summary>История дропа</summary><div id="profile-history-list"></div></details>
+    </dialog>
+    <footer>Поддержка: <span data-support></span></footer>
+    <script src="properties.js"></script>
+    <script src="telegram-auth.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

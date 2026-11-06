@@ -15,8 +15,9 @@
   const renderBalance = () => { balanceElement.textContent = `🪙 ${new Intl.NumberFormat('ru-RU').format(gameState.balance)}`; };
   const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
   const renderInventory = () => {
+    if (!profileInventory) return;
     const sellAllButton = document.querySelector('#profile-sell-all');
-    sellAllButton.hidden = !gameState.inventory.length;
+    if (sellAllButton) sellAllButton.hidden = !gameState.inventory.length;
     if (!gameState.inventory.length) { profileInventory.innerHTML = '<div class="profile-empty"><span>✦</span><strong>Коллекция пока пуста</strong><small>Откройте кейс, чтобы получить первый брейн.</small></div>'; return; }
     profileInventory.innerHTML = gameState.inventory.map((drop) => {
       const item = properties.brainrots.find((brainrot) => brainrot.id === drop.itemId);
@@ -26,6 +27,7 @@
     profileInventory.querySelectorAll('.profile-item img').forEach((photo) => photo.addEventListener('error', () => photo.classList.add('item-image-missing'), { once: true }));
   };
   const renderProfile = () => {
+    if (!document.querySelector('#profile-name')) return;
     document.querySelector('#profile-name').textContent = gameState.name || 'Telegram';
     document.querySelector('#profile-telegram-id').textContent = `Telegram ID · ${gameState.telegramId || '—'}`;
     document.querySelector('#profile-avatar').textContent = (gameState.name || 'T').trim().slice(0, 1).toUpperCase();
@@ -156,22 +158,40 @@
     ctx.fillStyle = gradGlow;
     ctx.fill();
 
-    // needle — a thin triangle pointing inward from top
-    const needleAngle = -Math.PI / 2 + angle; // offset by spin angle
-    const tipX  = cx + (WHEEL_R + 10) * Math.cos(needleAngle);
-    const tipY  = cy + (WHEEL_R + 10) * Math.sin(needleAngle);
-    const base1X = cx + (WHEEL_R + 18) * Math.cos(needleAngle - 0.14);
-    const base1Y = cy + (WHEEL_R + 18) * Math.sin(needleAngle - 0.14);
-    const base2X = cx + (WHEEL_R + 18) * Math.cos(needleAngle + 0.14);
-    const base2Y = cy + (WHEEL_R + 18) * Math.sin(needleAngle + 0.14);
+    // палочка — радиальная палка от внутреннего круга до внешнего кольца,
+    // ровно лежит на круге и крутится внутри по всему периметру
+    const needleAngle = -Math.PI / 2 + angle;
+    const stickInner = WHEEL_INNER + 2;
+    const stickOuter = WHEEL_R - 2;
+    const sx1 = cx + stickInner * Math.cos(needleAngle);
+    const sy1 = cy + stickInner * Math.sin(needleAngle);
+    const sx2 = cx + stickOuter * Math.cos(needleAngle);
+    const sy2 = cy + stickOuter * Math.sin(needleAngle);
+    // glow underlay
     ctx.beginPath();
-    ctx.moveTo(tipX, tipY);
-    ctx.lineTo(base1X, base1Y);
-    ctx.lineTo(base2X, base2Y);
-    ctx.closePath();
-    ctx.fillStyle = '#ffbd51';
+    ctx.moveTo(sx1, sy1);
+    ctx.lineTo(sx2, sy2);
+    ctx.strokeStyle = '#ff8b0066';
+    ctx.lineWidth = 11;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+    // stick body
+    ctx.beginPath();
+    ctx.moveTo(sx1, sy1);
+    ctx.lineTo(sx2, sy2);
+    ctx.strokeStyle = '#ffe08a';
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
     ctx.shadowColor = '#ff8b00';
-    ctx.shadowBlur = 8;
+    ctx.shadowBlur = 10;
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+    // bright tip marker sitting on the ring
+    ctx.beginPath();
+    ctx.arc(sx2, sy2, 6.5, 0, 2 * Math.PI);
+    ctx.fillStyle = '#fff2c4';
+    ctx.shadowColor = '#ff8b00';
+    ctx.shadowBlur = 14;
     ctx.fill();
     ctx.shadowBlur = 0;
   };
@@ -240,6 +260,7 @@
     if (!selectedUpgradeDrop()) { upgradeSourceId = null; upgradeTargetId = null; }
     const sourceList = document.querySelector('#upgrade-source-list');
     const targetList = document.querySelector('#upgrade-target-list');
+    if (!sourceList || !targetList) return;
     const source = selectedUpgradeSource();
     const target = selectedUpgradeTarget();
     sourceList.innerHTML = gameState.inventory.length ? gameState.inventory.map((drop) => {
@@ -261,7 +282,7 @@
   };
   const upgradeSourceList = document.querySelector('#upgrade-source-list');
   const upgradeTargetList = document.querySelector('#upgrade-target-list');
-  upgradeSourceList.addEventListener('click', (event) => {
+  if (upgradeSourceList) upgradeSourceList.addEventListener('click', (event) => {
     const button = event.target.closest('[data-upgrade-drop]');
     if (!button || upgradeBusy) return;
     upgradeSourceId = button.dataset.upgradeDrop;
@@ -269,14 +290,14 @@
     document.querySelector('#upgrade-status').textContent = '';
     renderUpgrade();
   });
-  upgradeTargetList.addEventListener('click', (event) => {
+  if (upgradeTargetList) upgradeTargetList.addEventListener('click', (event) => {
     const button = event.target.closest('[data-upgrade-target]');
     if (!button || upgradeBusy) return;
     upgradeTargetId = button.dataset.upgradeTarget;
     document.querySelector('#upgrade-status').textContent = '';
     renderUpgrade();
   });
-  document.querySelector('#upgrade-button').addEventListener('click', async () => {
+  const upgradeButton = document.querySelector('#upgrade-button'); if (upgradeButton) upgradeButton.addEventListener('click', async () => {
     const sourceDrop = selectedUpgradeDrop();
     const source = selectedUpgradeSource();
     const target = selectedUpgradeTarget();
@@ -340,13 +361,9 @@
     if (page === 'upgrader' || page === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
     else document.querySelector('#cases')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
-  document.querySelectorAll('[data-page-link]').forEach((link) => link.addEventListener('click', (event) => {
-    event.preventDefault();
-    setActivePage(link.dataset.pageLink);
-  }));
-  document.querySelector('.brand').addEventListener('click', (event) => { event.preventDefault(); setActivePage('home'); });
-  document.querySelectorAll('a[href="#cases"]').forEach((link) => link.addEventListener('click', (event) => { event.preventDefault(); setActivePage('cases'); }));
-  document.querySelector('#upgrade-back').addEventListener('click', () => setActivePage('cases'));
+  // Multi-page design: header nav links use real hrefs (no preventDefault).
+  const upgradeBack = document.querySelector('#upgrade-back');
+  if (upgradeBack) upgradeBack.addEventListener('click', () => { location.href = '/cases.html'; });
   let profileReturnPage = 'cases';
   const openProfile = async () => {
     profileReturnPage = document.body.classList.contains('upgrader-active') ? 'upgrader' : 'cases';
@@ -355,15 +372,17 @@
     profileDialog.showModal();
     try { await loadInventory(); } catch (error) { profileInventory.innerHTML = `<p class="profile-error">${escapeHtml(error.message)}</p>`; }
   };
-  document.querySelector('#profile-button').addEventListener('click', openProfile);
+  const profileButtonEl = document.querySelector('#profile-button'); if (profileButtonEl) profileButtonEl.addEventListener('click', openProfile);
   document.querySelectorAll('[data-miniapp-tab]').forEach((tab) => tab.addEventListener('click', () => {
     if (tab.dataset.miniappTab === 'profile') openProfile();
     else setActivePage(tab.dataset.miniappTab);
-    if (tab.dataset.miniappTab !== 'profile' && profileDialog.open) profileDialog.close();
+    if (tab.dataset.miniappTab !== 'profile' && profileDialog && profileDialog.open) profileDialog.close();
   }));
-  profileDialog.querySelector('.profile-close').addEventListener('click', () => { profileDialog.close(); setActivePage(profileReturnPage); });
-  profileDialog.addEventListener('click', (event) => { if (event.target === profileDialog) { profileDialog.close(); setActivePage(profileReturnPage); } });
-  profileInventory.addEventListener('click', async (event) => {
+  const tabProfileBtn = document.querySelector('#tab-profile');
+  if (tabProfileBtn) tabProfileBtn.addEventListener('click', openProfile);
+  if (profileDialog) profileDialog.querySelector('.profile-close').addEventListener('click', () => { profileDialog.close(); setActivePage(profileReturnPage); });
+  if (profileDialog) profileDialog.addEventListener('click', (event) => { if (event.target === profileDialog) { profileDialog.close(); setActivePage(profileReturnPage); } });
+  if (profileInventory) profileInventory.addEventListener('click', async (event) => {
     const button = event.target.closest('.sell-item');
     if (!button) return;
     button.disabled = true;
@@ -380,7 +399,7 @@
       window.setTimeout(() => loadInventory().catch(() => {}), 650);
     } catch (error) { button.disabled = false; button.textContent = 'Продать'; window.alert(error.message); }
   });
-  document.querySelector('#profile-sell-all').addEventListener('click', async (event) => {
+  const sellAllButtonEl = document.querySelector('#profile-sell-all'); if (sellAllButtonEl) sellAllButtonEl.addEventListener('click', async (event) => {
     const button = event.currentTarget;
     const drops = [...gameState.inventory];
     if (!drops.length || button.disabled) return;
@@ -406,9 +425,9 @@
       button.textContent = 'Продать всё';
     }
   });
-  const renderCases = () => { casesList.replaceChildren(); properties.cases.forEach((caseData) => { const card = document.createElement('article'); card.className = 'card'; card.append(image(caseData.image, caseData.name, 'card-image')); card.insertAdjacentHTML('beforeend', `<h3>${caseData.name}</h3><span class="price">${formatPrice(caseData.price)}</span><div class="card-bottom"><span>${caseData.items.length} предмета</span><button class="inspect" type="button">Открыть →</button></div>`); casesList.append(card); }); };
+  const renderCases = () => { if (!casesList) return; casesList.replaceChildren(); properties.cases.forEach((caseData) => { const card = document.createElement('article'); card.className = 'card'; card.append(image(caseData.image, caseData.name, 'card-image')); card.insertAdjacentHTML('beforeend', `<h3>${caseData.name}</h3><span class="price">${formatPrice(caseData.price)}</span><div class="card-bottom"><span>${caseData.items.length} предмета</span><button class="inspect" type="button">Открыть →</button></div>`); casesList.append(card); }); };
   const renderBrainrots = () => { brainrotsList.replaceChildren(); properties.brainrots.forEach((brainrot) => { const card = document.createElement('article'); card.className = 'card'; card.append(image(brainrot.image, brainrot.name, 'card-image')); card.insertAdjacentHTML('beforeend', `<h3>${brainrot.name}</h3><span class="price">${formatPrice(brainrot.price)}</span><div class="card-bottom"><span class="status ${brainrot.withdrawable ? '' : 'no'}">${brainrot.withdrawable ? 'Можно вывести' : 'Не выводится'}</span></div>`); brainrotsList.append(card); }); };
-  const renderLive = () => { liveFeed.replaceChildren(); };
+  const renderLive = () => { if (liveFeed) liveFeed.replaceChildren(); };
   const showCase = (caseData) => { const items = caseData.items.map((id) => { const item = byId.get(id); return item ? `<div class="case-item"><img src="${imagePath(item.image)}" alt="${item.name}"><div><strong>${item.name}</strong><small>${formatPrice(item.price)} · ${item.withdrawable ? 'можно вывести' : 'не выводится'}</small></div></div>` : ''; }).join(''); details.innerHTML = `<div class="case-open-layout"><img class="case-open-image" src="${imagePath(caseData.image)}" alt="${caseData.name}"><div><p class="eyebrow">ОТКРЫТИЕ КЕЙСА</p><h2>${caseData.name}</h2><p class="price">Стоимость: ${formatPrice(caseData.price)}</p><p class="case-error" id="case-error"></p><button class="primary-button" id="open-case-button" type="button">Открыть за ${formatPrice(caseData.price)}</button><div class="case-items"><strong>Возможные предметы</strong>${items}</div></div></div>`; dialog.showModal(); document.querySelector('#open-case-button').addEventListener('click', () => openCase(caseData)); };
   const openCase = async (caseData) => { const button = document.querySelector('#open-case-button'); button.disabled = true; button.textContent = 'Открываем…'; try { const response = await fetch('/api/open-case', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ caseId: caseData.id }) }); const payload = await response.json(); if (!response.ok) throw new Error(payload.error); gameState.balance = payload.balance; renderBalance(); dialog.close(); document.querySelector('#result-details').innerHTML = `<p class="eyebrow">НОВЫЙ ПРЕДМЕТ</p><h2>Тебе выпало</h2><img class="result-image" src="${imagePath(payload.item.image)}" alt="${payload.item.name}"><h3>${payload.item.name}</h3><p class="price">${formatPrice(payload.item.price)}</p><span class="status ${payload.item.withdrawable ? '' : 'no'}">${payload.item.withdrawable ? 'Можно вывести' : 'Не выводится'}</span>`; resultDialog.showModal(); } catch (error) { button.disabled = false; button.textContent = `Открыть за ${formatPrice(caseData.price)}`; document.querySelector('#case-error').textContent = error.message; } };
   const start = async () => { try {
@@ -418,12 +437,13 @@
     byId = new Map(properties.brainrots.map((brainrot) => [brainrot.id, brainrot]));
     document.title = properties.siteName;
     document.querySelectorAll('[data-site-name]').forEach((element) => { element.textContent = properties.siteName; });
-    document.querySelector('[data-tagline]').textContent = properties.tagline;
-    document.querySelector('[data-support]').textContent = properties.supportHandle;
+    const taglineEl = document.querySelector('[data-tagline]'); if (taglineEl) taglineEl.textContent = properties.tagline;
+    const supportEl = document.querySelector('[data-support]'); if (supportEl) supportEl.textContent = properties.supportHandle;
+    if (gameState.isAdmin) { const adminLink = document.querySelector('#admin-nav-link'); if (adminLink) adminLink.hidden = false; }
     renderBalance(); renderCases(); renderLive(); renderInventory(); renderProfile(); renderUpgrade();
     window.dispatchEvent(new Event('caseapp:ready'));
   } catch (error) {
     document.body.innerHTML = `<main class="telegram-gate"><h1>Не удалось загрузить игру</h1><p>${escapeHtml(error.message)}</p><p>Закройте Mini App и откройте его снова через бота.</p></main>`;
   } };
-  document.querySelector('.close').addEventListener('click', () => dialog.close()); dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); }); document.querySelector('.result-close').addEventListener('click', () => resultDialog.close()); start();
+  if (dialog) { const caseCloseBtn = dialog.querySelector('.close'); if (caseCloseBtn) caseCloseBtn.addEventListener('click', () => dialog.close()); dialog.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); }); } const resultCloseBtn = document.querySelector('.result-close'); if (resultCloseBtn) resultCloseBtn.addEventListener('click', () => resultDialog.close()); start();
 })();

@@ -22,7 +22,7 @@ const webhookUrl = `${baseUrl.replace(/\/$/, '')}/api/telegram-webhook`;
 const body = {
   url: webhookUrl,
   allowed_updates: ['message', 'callback_query'],
-  drop_pending_updates: true,
+  drop_pending_updates: true,   // не проигрывать накопленные апдейты при установке webhook
 };
 if (secret) body.secret_token = secret;
 

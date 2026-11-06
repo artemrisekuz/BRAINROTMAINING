@@ -3,22 +3,39 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cases</title>
+    <title>Brainrot Mining</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="case-opening.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#home" aria-label="На главную"><span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 18 5M8 16l-3-3M11 13l-3-3M14 10l-3-3M17 7l-3-3M15 5l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span data-site-name></span></a>
+      <a class="brand" href="/" aria-label="На главную">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 18 5M8 16l-3-3M11 13l-3-3M14 10l-3-3M17 7l-3-3M15 5l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span data-site-name></span>
+      </a>
       <nav aria-label="Навигация">
-        <a class="active" href="#home" data-page-link="home"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v11h14V9M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Главное</a>
-        <a href="#cases" data-page-link="cases"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 9-4 9 4-9 5-9-5ZM3 7v10l9 5 9-5V7M12 12v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Кейсы</a>
-        <a href="#upgrader" data-page-link="upgrader"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-6 6 6-6 6 6M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></b>Апгрейд</a>
-        <a href="#bonus" data-page-link="bonus"><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.3L12 17l-6.2 4.2 2.4-7.3L2 9.4h7.6L12 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Бонусы</a>
-        <a href="#admin" data-page-link="admin" id="admin-nav-link" hidden><b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 5h5l-4 4 1.5 5.5L12 14l-5.5 2.5L8 11 4 7h5l3-5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Админ</a>
+        <a class="active" href="/" data-page-link="home">
+          <b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v11h14V9M9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Главное
+        </a>
+        <a href="/cases.html" data-page-link="cases">
+          <b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 7 9-4 9 4-9 5-9-5ZM3 7v10l9 5 9-5V7M12 12v10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Кейсы
+        </a>
+        <a href="/upgrade.html" data-page-link="upgrader">
+          <b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20V4m-6 6 6-6 6 6M5 20h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></b>Апгрейд
+        </a>
+        <a href="/bonus.html" data-page-link="bonus">
+          <b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.3L12 17l-6.2 4.2 2.4-7.3L2 9.4h7.6L12 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Бонусы
+        </a>
+        <a href="/admin.html" data-page-link="admin" id="admin-nav-link" hidden>
+          <b><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 5h5l-4 4 1.5 5.5L12 14l-5.5 2.5L8 11 4 7h5l3-5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></b>Админ
+        </a>
       </nav>
-      <div class="account"><span id="balance">🪙 0</span><span id="telegram-user" class="telegram-user">Telegram</span><button class="profile-button" id="profile-button" type="button">Профиль</button></div>
+      <div class="account">
+        <span id="balance">🪙 0</span>
+        <span id="telegram-user" class="telegram-user">Telegram</span>
+        <button class="profile-button" id="profile-button" type="button">Профиль</button>
+      </div>
     </header>
 
     <aside class="live-sidebar">
@@ -28,168 +45,20 @@
     </aside>
 
     <main>
-      <!-- HOME -->
       <section class="hero" id="home">
         <p class="eyebrow">COLLECT · OPEN · WIN</p>
         <h1 data-site-name></h1>
         <p class="hero-copy" data-tagline></p>
-        <a class="primary-button" href="#cases">Смотреть кейсы <span>→</span></a>
-      </section>
-
-      <!-- CASES -->
-      <section class="section" id="cases">
-        <div class="section-heading"><div><p class="eyebrow">◎ ВИТРИНА</p><h2>Линейные кейсы</h2></div><p>Откройте карточку, чтобы посмотреть предметы внутри.</p></div>
-        <div class="card-grid" id="cases-list"></div>
-      </section>
-
-      <!-- UPGRADER -->
-      <section class="section upgrader-section" id="upgrader">
-        <button class="upgrade-back" id="upgrade-back" type="button"><span aria-hidden="true">‹</span> Назад</button>
-        <div class="section-heading"><div><p class="eyebrow">ПРОКАЧКА</p><h2>Апгрейдер</h2></div><p>Поставьте свой брейн и выберите цель дороже.</p></div>
-        <div class="upgrade-panel">
-          <div class="upgrade-choice">
-            <div class="upgrade-choice-label"><span>ВАШ БРЕЙН</span><small id="upgrade-source-value">Выберите предмет</small></div>
-            <div id="upgrade-source-list" class="upgrade-items"><p class="upgrade-empty">Загрузка инвентаря…</p></div>
-          </div>
-          <div class="upgrade-chance-wrap">
-            <div class="upgrade-wheel-wrap" id="upgrade-wheel-wrap">
-              <canvas id="upgrade-wheel-canvas" class="upgrade-wheel-canvas" width="220" height="220" aria-label="Колесо шанса" role="img"></canvas>
-              <div class="upgrade-wheel-center" id="upgrade-wheel-center">
-                <strong id="upgrade-chance">0%</strong>
-                <span>ШАНС</span>
-              </div>
-            </div>
-            <div class="upgrade-chance-legend">
-              <span><i class="upgrade-legend-win"></i>УСПЕХ</span>
-              <span><i class="upgrade-legend-lose"></i>ПРОИГРЫШ</span>
-            </div>
-          </div>
-          <div class="upgrade-choice">
-            <div class="upgrade-choice-label"><span>ЦЕЛЬ</span><small id="upgrade-target-value">Выберите предмет</small></div>
-            <div id="upgrade-target-list" class="upgrade-items"><p class="upgrade-empty">Сначала выберите брейн</p></div>
-          </div>
-          <button id="upgrade-button" class="primary-button upgrade-submit" type="button" disabled>Апгрейд</button>
-          <p id="upgrade-status" class="upgrade-status" aria-live="polite"></p>
-        </div>
-      </section>
-
-      <!-- BONUS -->
-      <section class="section bonus-section" id="bonus">
-        <div class="section-heading"><div><p class="eyebrow">БОНУСЫ</p><h2>Ваши бонусы</h2></div></div>
-
-        <div class="bonus-tabs">
-          <button class="bonus-tab active" data-bonus-tab="promo">🎟 Промокод</button>
-        </div>
-
-        <!-- Promo tab -->
-        <div class="bonus-tab-panel" id="bonus-panel-promo">
-          <div class="bonus-promo-form">
-            <p class="bonus-hint">Введите промокод, чтобы получить монеты или открыть бесплатный кейс.</p>
-            <div class="bonus-promo-row">
-              <input id="promo-input" class="bonus-input" type="text" placeholder="ПРОМОКОД" autocomplete="off" autocapitalize="characters" maxlength="32">
-              <button id="promo-submit" class="primary-button bonus-promo-btn" type="button">Применить</button>
-            </div>
-            <p id="promo-status" class="bonus-promo-status" aria-live="polite"></p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ADMIN -->
-      <section class="section admin-section" id="admin">
-        <div class="section-heading"><div><p class="eyebrow">УПРАВЛЕНИЕ</p><h2>Админ-панель</h2></div><p>Только для администраторов.</p></div>
-
-        <div class="admin-tabs">
-          <button class="admin-tab active" data-admin-tab="coins">💰 Монеты</button>
-          <button class="admin-tab" data-admin-tab="promos">🎟 Промокоды</button>
-          <button class="admin-tab" data-admin-tab="admins">👑 Администраторы</button>
-        </div>
-
-        <!-- Coins tab -->
-        <div class="admin-panel" id="admin-panel-coins">
-          <div class="admin-card">
-            <h3 class="admin-card-title">Выдать монеты по Telegram ID</h3>
-            <div class="admin-form-row">
-              <input id="admin-coins-id" class="bonus-input" type="text" placeholder="Telegram ID (числовой)" maxlength="20">
-              <input id="admin-coins-amount" class="bonus-input" type="number" placeholder="Кол-во монет" min="-9999999" max="9999999">
-              <button id="admin-coins-btn" class="primary-button" type="button">Выдать</button>
-            </div>
-            <p id="admin-coins-status" class="bonus-promo-status" aria-live="polite"></p>
-          </div>
-          <div class="admin-card">
-            <h3 class="admin-card-title">Установить баланс точно</h3>
-            <div class="admin-form-row">
-              <input id="admin-setbal-id" class="bonus-input" type="text" placeholder="Telegram ID" maxlength="20">
-              <input id="admin-setbal-amount" class="bonus-input" type="number" placeholder="Новый баланс" min="0" max="99999999">
-              <button id="admin-setbal-btn" class="primary-button" type="button">Установить</button>
-            </div>
-            <p id="admin-setbal-status" class="bonus-promo-status" aria-live="polite"></p>
-          </div>
-          <div class="admin-card">
-            <h3 class="admin-card-title">Список игроков</h3>
-            <button id="admin-players-load" class="primary-button admin-load-btn" type="button">Загрузить</button>
-            <div id="admin-players-list" class="admin-table-wrap"></div>
-          </div>
-        </div>
-
-        <!-- Promos tab -->
-        <div class="admin-panel" id="admin-panel-promos" hidden>
-          <div class="admin-card">
-            <h3 class="admin-card-title">Создать промокод</h3>
-            <div class="admin-form-col">
-              <div class="admin-form-row">
-                <input id="admin-promo-code" class="bonus-input" type="text" placeholder="КОД (только латиница, цифры)" maxlength="32" autocapitalize="characters">
-                <select id="admin-promo-type" class="bonus-input admin-select">
-                  <option value="coins">Монеты</option>
-                  <option value="case">Кейс</option>
-                </select>
-              </div>
-              <div class="admin-form-row" id="admin-promo-coins-row">
-                <input id="admin-promo-value" class="bonus-input" type="number" placeholder="Монет" min="1" max="999999">
-              </div>
-              <div class="admin-form-row" id="admin-promo-case-row" hidden>
-                <select id="admin-promo-caseid" class="bonus-input admin-select">
-                  <option value="">— Выберите кейс —</option>
-                </select>
-              </div>
-              <div class="admin-form-row">
-                <input id="admin-promo-uses" class="bonus-input" type="number" placeholder="Использований (-1 = ∞)" min="-1" max="9999" value="1">
-                <input id="admin-promo-expires" class="bonus-input" type="datetime-local" title="Срок действия (необязательно)">
-              </div>
-              <button id="admin-promo-create" class="primary-button" type="button">Создать промокод</button>
-              <p id="admin-promo-status" class="bonus-promo-status" aria-live="polite"></p>
-            </div>
-          </div>
-          <div class="admin-card">
-            <h3 class="admin-card-title">Существующие промокоды</h3>
-            <button id="admin-promos-load" class="primary-button admin-load-btn" type="button">Загрузить</button>
-            <div id="admin-promos-list" class="admin-table-wrap"></div>
-          </div>
-        </div>
-
-        <!-- Admins tab -->
-        <div class="admin-panel" id="admin-panel-admins" hidden>
-          <div class="admin-card">
-            <h3 class="admin-card-title">Добавить администратора</h3>
-            <div class="admin-form-row">
-              <input id="admin-add-id" class="bonus-input" type="text" placeholder="Telegram ID" maxlength="20">
-              <button id="admin-add-btn" class="primary-button" type="button">Добавить</button>
-            </div>
-            <p id="admin-add-status" class="bonus-promo-status" aria-live="polite"></p>
-          </div>
-          <div class="admin-card">
-            <h3 class="admin-card-title">Текущие администраторы</h3>
-            <button id="admin-admins-load" class="primary-button admin-load-btn" type="button">Загрузить</button>
-            <div id="admin-admins-list" class="admin-table-wrap"></div>
-          </div>
-        </div>
+        <a class="primary-button" href="/cases.html">Смотреть кейсы <span>→</span></a>
       </section>
     </main>
 
     <nav class="miniapp-tabs" aria-label="Разделы игры">
-      <button class="miniapp-tab active" type="button" data-miniapp-tab="cases"><span aria-hidden="true">▣</span>Кейсы</button>
-      <button class="miniapp-tab" type="button" data-miniapp-tab="upgrader"><span aria-hidden="true">↑</span>Апгрейд</button>
-      <button class="miniapp-tab" type="button" data-miniapp-tab="bonus"><span aria-hidden="true">★</span>Бонусы</button>
-      <button class="miniapp-tab" type="button" data-miniapp-tab="profile"><span aria-hidden="true">◉</span>Профиль</button>
+      <button class="miniapp-tab active" type="button" onclick="location.href='/'"><span aria-hidden="true">🏠</span>Главная</button>
+      <button class="miniapp-tab" type="button" onclick="location.href='/cases.html'"><span aria-hidden="true">▣</span>Кейсы</button>
+      <button class="miniapp-tab" type="button" onclick="location.href='/upgrade.html'"><span aria-hidden="true">↑</span>Апгрейд</button>
+      <button class="miniapp-tab" type="button" onclick="location.href='/bonus.html'"><span aria-hidden="true">★</span>Бонусы</button>
+      <button class="miniapp-tab" type="button" id="tab-profile"><span aria-hidden="true">◉</span>Профиль</button>
     </nav>
 
     <dialog id="case-dialog">
@@ -210,9 +79,6 @@
     <script src="properties.js"></script>
     <script src="telegram-auth.js"></script>
     <script src="app.js"></script>
-    <script src="bonus.js"></script>
-    <script src="admin.js"></script>
-    <script src="case-opening.js"></script>
     <script src="live-spawns.js"></script>
   </body>
 </html>

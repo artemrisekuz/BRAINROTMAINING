@@ -50,6 +50,17 @@ export default {
     // ── GET /api/config ──────────────────────────────────────────────────
     if (method === 'GET' && pathname === '/api/config') return json(config);
 
+    // ── GET /api/debug — temporary diagnostic endpoint ───────────────────
+    if (method === 'GET' && pathname === '/api/debug') {
+      return json({
+        ok: true,
+        hasToken: !!(BOT_TOKEN && !BOT_TOKEN.startsWith('YOUR_')),
+        hasSession: !!(SESSION_SECRET && !SESSION_SECRET.startsWith('YOUR_')),
+        hasDB: !!db,
+        adminId: env.TELEGRAM_ADMIN_ID || 'not set',
+      });
+    }
+
     // ── GET /api/auth/me ─────────────────────────────────────────────────
     if (method === 'GET' && pathname === '/api/auth/me') {
       const session = await getSession(request, SESSION_SECRET);
